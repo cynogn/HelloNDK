@@ -1,13 +1,16 @@
 package com.helloworld;
 
-import android.content.Context;
-import android.widget.Toast;
+import android.util.Log;
 
 public class NativeLibrary {
-	/* *
-	 * performOperation is defined in native library
-	 */
-	public native String performOperation();
+
+	public native int addOperation(int value1, int value2);
+
+	public native int minusOperation(int value1, int value2);
+
+	public native int multiOperation(int value1, int value2);
+
+	public native int divideOperation(int value1, int value2);
 
 	/* *
 	 * loads the library shared object
@@ -20,7 +23,26 @@ public class NativeLibrary {
 	 * Computes the result
 	 */
 
-	public void result(Context ctx) {
-		Toast.makeText(ctx, performOperation(), Toast.LENGTH_SHORT).show();
+	public int result(String operation, int number1, int number2) {
+		int result = 0;
+		if (operation.toString().equals("+")) {
+			result = addOperation(number1, number2);
+			Log.v("PLUS", result + " ");
+		}
+		if (operation.equals("-")) {
+			result = minusOperation(number1, number2);
+			Log.v("MINUS", result + " ");
+		}
+		if (operation.equals("*")) {
+			result = multiOperation(number1, number2);
+			Log.v("MULTI", result + " ");
+		}
+		if (operation.equals("/")) {
+			result = divideOperation(number1, number2);
+			Log.v("DIVIDE", result + " ");
+		}
+		return result;
+
 	}
+
 }
